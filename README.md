@@ -68,13 +68,19 @@ composition style): **array iterate went from 15 958 ns / 1 001 allocs to
 before it was 61× *slower* than raw Go. Empty-`Result` completions (`Each`,
 `Clear`, …) allocate nothing at all now.
 
-The **value-producing** paths (arithmetic, push, map) keep their cost: each
-allocates a `Result` *wrapping a payload* (the functional-options API forces a
-wrapper) plus the `interface{}` boxing of the value. These are reducible further
-with small-value caches (fixnum-style interned Numbers) and a value-`Result`
-fast path — implementation changes, not contract changes. The `interface{}`
-boxing of an arbitrary payload is the one irreducible cost of being dynamic, and
-Ruby/Python pay it too.
+The **value-producing** paths (arithmetic, push, map) keep more of their cost:
+each allocates a `Result` *wrapping a payload* (the functional-options API forces
+a wrapper) plus the `interface{}` boxing of the value. A second, also
+design-preserving optimization addresses part of this: a **fixnum-style
+small-integer cache** interns integers in `[-128, 256]`, so the arithmetic-result
+path returns a shared instance for an in-band result. Measured on
+small-integer-dominated work (operands and results in band): **4 000 → 3 000
+allocs/op (−25%), ~7% faster**, with no regression on large-value loops. (The
+operand constructor `New(WithInt(j))` can't be made allocation-free — Go's escape
+analysis heap-allocates it through the functional-options closure regardless — so
+the win is on the result path, `build()`.) The remaining `Result`-wrapper cost
+would need a value-`Result` fast path; the `interface{}` boxing of an arbitrary
+payload is the one irreducible cost of being dynamic, and Ruby/Python pay it too.
 
 ## Honest analysis
 
