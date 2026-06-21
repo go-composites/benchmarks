@@ -1,0 +1,7 @@
+# Go
+*.test
+*.out
+/coverage*
+# Editors / OS
+.DS_Store
+*.swp

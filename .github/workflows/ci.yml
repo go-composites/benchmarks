@@ -1,0 +1,33 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  GOWORK: "off"
+  CGO_ENABLED: "0"
+  GOPRIVATE: github.com/go-composites
+  GOPROXY: direct
+  GOSUMDB: "off"
+  GOFLAGS: -mod=mod
+
+jobs:
+  build:
+    name: build & smoke-bench
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-go@v6
+        with:
+          go-version: stable
+          check-latest: true
+      - run: go build ./...
+      - run: go vet ./...
+      # Benchmarks aren't coverage-gated; this is a quick run (10 iterations
+      # each) just to keep them compiling and executing.
+      - run: go test -bench=. -benchtime=10x ./go/...
