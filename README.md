@@ -24,8 +24,10 @@ operation **boxes its operands into `interface{}`** and **allocates a `Result`**
 (and often a fresh composite) per call. Where the composite is doing real
 container work (map insert, hash lookup) it generally still **beats Ruby MRI**;
 where the operation is a primitive the compiler would otherwise keep in a
-register (integer add, array iterate), the per-op allocation makes it **as slow
-as, or slower than, Ruby**.
+register (a tight integer-arithmetic loop), the per-op allocation makes it **as
+slow as, or slower than, Ruby**. Interning the immutable Null-Object (see the
+optimization note) then removed the allocation from the *traversal* path entirely
+— `array iterate` is now zero-alloc and beats Ruby by ≈9×.
 
 ## Results
 
@@ -36,18 +38,43 @@ ns/op; Ruby figures are wall time from the stdlib `Benchmark` module divided by
 the repetition count (see [methodology](#methodology)). Numbers are a single
 representative run — re-run `./run.sh` to reproduce.
 
+These numbers use the **interned** `null`/`error`/`result` (see the optimization
+note below).
+
 | Operation (N=1000)        | go-composites | raw Go    | Ruby MRI  | composite ÷ raw Go | composite allocs |
 |---------------------------|--------------:|----------:|----------:|-------------------:|-----------------:|
-| array push                |    24 267 ns  |  2 310 ns | 37 030 ns |        **10.5×**   | 1 756 allocs/op  |
-| array iterate (sum)       |    15 958 ns  |    260 ns | 25 980 ns |        **61×**     | 1 001 allocs/op  |
-| dictionary insert         |    70 776 ns  | 42 933 ns | 115 211 ns|        **1.65×**   | 1 767 allocs/op  |
-| dictionary lookup         |    28 609 ns  |  6 268 ns | 59 901 ns |        **4.6×**    | 1 000 allocs/op  |
-| integer arithmetic loop   |    34 458 ns  |    256 ns | 27 251 ns |        **134×**    | 3 001 allocs/op  |
-| string build (vs Builder) |   507 245 ns  |  5 572 ns | 35 875 ns |        **91×**     | 3 001 allocs/op  |
-| string build (vs naive +=)|   507 245 ns  | 614 673 ns| 359 720 ns|        **0.83×**   | 3 001 allocs/op  |
+| array push                |    21 351 ns  |  2 310 ns | 37 030 ns |        **9.2×**    | 1 756 allocs/op  |
+| array iterate (sum)       |     2 894 ns  |    260 ns | 25 980 ns |        **11×**     | **0 allocs/op**  |
+| dictionary insert         |    61 254 ns  | 42 933 ns | 115 211 ns|        **1.43×**   | 1 767 allocs/op  |
+| dictionary lookup         |    25 492 ns  |  6 268 ns | 59 901 ns |        **4.1×**    | 1 000 allocs/op  |
+| integer arithmetic loop   |    30 951 ns  |    256 ns | 27 251 ns |        **121×**    | 3 001 allocs/op  |
+| string build (vs Builder) |   444 562 ns  |  5 572 ns | 35 875 ns |        **80×**     | 3 001 allocs/op  |
+| string build (vs naive +=)|   444 562 ns  | 614 673 ns| 359 720 ns|        **0.72×**   | 3 001 allocs/op  |
 
 Raw Go `allocs/op` for reference: array push 12, iterate 0, dict insert 20,
 dict lookup 0, integer loop 0, string-Builder 15, string-naive 999.
+
+### Optimization note — interning the Null-Object (2026-06-21)
+
+The Null-Object/immutable-value design *enables* a zero-cost optimization: a
+`Null`, a null-error and an empty `Result` are stateless and identity-irrelevant,
+so they can be **interned** as shared singletons (exactly as a VM interns
+`nil`/`true`/`false`). `null`/`error`/`result` now do this — a zero-API,
+zero-semantic change.
+
+The effect is decisive on the **traversal** hot path (the bread-and-butter of the
+composition style): **array iterate went from 15 958 ns / 1 001 allocs to
+2 894 ns / 0 allocs (≈5.5× faster) — and now beats Ruby MRI** (25 980 ns), where
+before it was 61× *slower* than raw Go. Empty-`Result` completions (`Each`,
+`Clear`, …) allocate nothing at all now.
+
+The **value-producing** paths (arithmetic, push, map) keep their cost: each
+allocates a `Result` *wrapping a payload* (the functional-options API forces a
+wrapper) plus the `interface{}` boxing of the value. These are reducible further
+with small-value caches (fixnum-style interned Numbers) and a value-`Result`
+fast path — implementation changes, not contract changes. The `interface{}`
+boxing of an arbitrary payload is the one irreducible cost of being dynamic, and
+Ruby/Python pay it too.
 
 ## Honest analysis
 
@@ -69,29 +96,34 @@ pays:
 does:
 
 - The closer the operation is to a single machine instruction, the worse the
-  composite looks. **Integer arithmetic (134×)** and **array iterate (61×)** are
-  the extremes: raw Go keeps the accumulator in a register and the loop body is
-  essentially free (256 ns / 260 ns for 1000 iterations, 0 allocs), so the
-  composite's boxing+`Result` overhead is *the entire runtime*.
+  composite looks. **Integer arithmetic (121×)** is now the extreme: raw Go keeps
+  the accumulator in a register and the loop body is essentially free (256 ns for
+  1000 iterations, 0 allocs), while the composite still allocates a `Number` *and*
+  a payload-carrying `Result` every step, so its overhead is *the entire runtime*.
+  (**Array iterate used to be the other extreme at 61×** — until interning made
+  its empty `Result`s zero-alloc; it is now 11× and the success story above.)
 - The more genuine container work per call, the smaller the relative tax.
-  **Dictionary insert is only 1.65×** because Go's `map` insert (hashing,
+  **Dictionary insert is only 1.43×** because Go's `map` insert (hashing,
   probing, possible growth) is itself expensive enough to dominate, leaving the
-  boxing as a minority cost. Array push (10.5×) and dict lookup (4.6×) sit in
+  boxing as a minority cost. Array push (9.2×) and dict lookup (4.1×) sit in
   between.
 
 **Versus Ruby MRI.** This is the more flattering comparison, and it splits
 cleanly:
 
 - On real container work, go-composites **beats** interpreted Ruby: dict insert
-  70 776 ns vs 115 211 ns, dict lookup 28 609 ns vs 59 901 ns, array push
-  24 267 ns vs 37 030 ns. Even paying the composite tax, compiled Go with a
-  native runtime stays ahead of the MRI interpreter.
-- On primitive-bound loops the picture flips: the **integer loop is *slower*
-  than Ruby** (34 458 ns vs 27 251 ns). MRI's fixnums avoid allocation for small
-  integers, while the composite allocates a `Number` + `Result` every step — so
-  here the composite gives up Go's usual advantage and lands behind the
-  reference dynamic language. Array iterate (15 958 ns vs 25 980 ns) stays
-  ahead, but by less than 2× rather than the orders of magnitude raw Go enjoys.
+  61 254 ns vs 115 211 ns, dict lookup 25 492 ns vs 59 901 ns, array push
+  21 351 ns vs 37 030 ns. Even paying the composite tax, compiled Go with a
+  native runtime stays ahead of the MRI interpreter. And after interning, **array
+  iterate now crushes Ruby — 2 894 ns vs 25 980 ns (≈9×)** — where before the
+  optimization it was ahead by under 2×.
+- On primitive-bound loops the picture still flips: the **integer loop is *slower*
+  than Ruby** (30 951 ns vs 27 251 ns). MRI's fixnums avoid allocation for small
+  integers, while the composite allocates a `Number` + a payload `Result` every
+  step — so here the composite gives up Go's usual advantage and lands behind the
+  reference dynamic language. This is exactly the path interning does *not* help
+  (the `Result` carries a payload, so it cannot be the shared empty singleton);
+  closing it would need a small-`Number` cache, the next optimization.
 
 **The string outlier.** `String.Concat` rebuilds the whole accumulated string
 each call, so building by repeated `Concat` is **O(n²)** — 507 µs. Compared
