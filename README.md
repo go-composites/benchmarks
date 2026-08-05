@@ -18,8 +18,8 @@ for uniformity, null-safety and a value-oriented `Result` API. This repo says by
 
 ## TL;DR
 
-go-composites is consistently slower than idiomatic raw Go — from **~1.7×** on
-hash insert up to **~130×** on a tight integer-arithmetic loop — because every
+go-composites is consistently slower than idiomatic raw Go — from **~1.4×** on
+dictionary insert up to **~121×** on a tight integer-arithmetic loop — because every
 operation **boxes its operands into `interface{}`** and **allocates a `Result`**
 (and often a fresh composite) per call. Where the composite is doing real
 container work (map insert, hash lookup) it generally still **beats Ruby MRI**;
