@@ -7,7 +7,7 @@ require (
 	github.com/go-composites/dictionary v0.0.0-20260621062926-bcc78dbd12de
 	github.com/go-composites/number v0.0.0-20260621162604-c12ef12276a5
 	github.com/go-composites/result v0.0.0-20260621061851-32adc2fb3ac2
-	github.com/go-composites/string v0.0.0-20260621062835-91506e1e3f94
+	github.com/go-composites/string v0.0.0-20260830075418-81b029a467c7
 )
 
 require (
