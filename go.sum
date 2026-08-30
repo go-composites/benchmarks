@@ -14,6 +14,8 @@ github.com/go-composites/number v0.0.0-20260621162604-c12ef12276a5 h1:XkviAreh8s
 github.com/go-composites/number v0.0.0-20260621162604-c12ef12276a5/go.mod h1:TdzTN8aGCPs6zfaCBisSsawWSLQw/5fhGgS3bZHlurw=
 github.com/go-composites/result v0.0.0-20260621061851-32adc2fb3ac2 h1:viW4pFFcVIZI7r/2I5LzjrHti/w4yaj4YbD8CdfrOHg=
 github.com/go-composites/result v0.0.0-20260621061851-32adc2fb3ac2/go.mod h1:gvGXTgh97uhqQjR16Te5aGr/Y4g1xQXDHc2nNYEj8/Y=
+github.com/go-composites/result v0.0.0-20260830075423-4c0f0e8854cc h1:sLc9uhHzXlP39tvKybmHKtof9kQyNWz8MAG5ZxA/r3Y=
+github.com/go-composites/result v0.0.0-20260830075423-4c0f0e8854cc/go.mod h1:U8jOcQwbbSwQ3E5geccvv0lkwNv89piHYG/Jj1w18JQ=
 github.com/go-composites/string v0.0.0-20260621062835-91506e1e3f94 h1:msdqTkDcHzlYl/9CKWYva3DZSBCvELKD0vSqeIPxyWw=
 github.com/go-composites/string v0.0.0-20260621062835-91506e1e3f94/go.mod h1:I9n1gFm3ccBxILOnBVLshjvZ19z5RbS4vIU67KAW9qA=
 github.com/go-logr/logr v1.4.1 h1:pKouT5E8xu9zeFC39JXRDukb6JFQPXM5p5I91188VAQ=
