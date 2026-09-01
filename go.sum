@@ -18,6 +18,8 @@ github.com/go-composites/boolean v0.0.0-20260830151016-dfc0c7f20b15 h1:nMTg2LH8c
 github.com/go-composites/boolean v0.0.0-20260830151016-dfc0c7f20b15/go.mod h1:meB1cBqes+wOD4vMzbENErwHB6I7fx8Hh9czimRJ/60=
 github.com/go-composites/boolean v0.0.0-20260831064055-3ccc89478134 h1:3n74hCjzEJLV+qtkGdFw6qQ0Ydzi7GzS1hUhF756mNs=
 github.com/go-composites/boolean v0.0.0-20260831064055-3ccc89478134/go.mod h1:PR9135Zx2yi2HOwaUynXWJ7WGEGFi3cmSiXPfvs5AEU=
+github.com/go-composites/boolean v0.0.0-20260831114728-9b8bb8bf9eb1 h1:5BByIwpq2QvjSrT3zFD6V9Vvu4k9TeTyxFatfM3rFbg=
+github.com/go-composites/boolean v0.0.0-20260831114728-9b8bb8bf9eb1/go.mod h1:L0i4DifMXy5x2zESJIrxPAV9gs8y0BYuvkJAjz4WkCU=
 github.com/go-composites/dictionary v0.0.0-20260621062926-bcc78dbd12de h1:fcrMKp0ZmhWPwjwGRwBFSctPzsVYGh9HCi/GSEo5AX4=
 github.com/go-composites/dictionary v0.0.0-20260621062926-bcc78dbd12de/go.mod h1:AoX4Zn6DyO1Ev2K+Yi0eNRo2Lu3DoIv7JOG8YNQ+4Is=
 github.com/go-composites/dictionary v0.0.0-20260830075430-cde38a320fea h1:Y2CtfDcxh6nX0JKVbY3NtOKjKdgsdJNSqGo7M2VJc9I=
@@ -28,6 +30,8 @@ github.com/go-composites/dictionary v0.0.0-20260831064048-1f074afaf7c7 h1:Yli0Mi
 github.com/go-composites/dictionary v0.0.0-20260831064048-1f074afaf7c7/go.mod h1:im3OZHMfFMPBYOtbWywtigHYt5qJwbKOPzn5ZQ/5xM0=
 github.com/go-composites/dictionary v0.0.0-20260831114712-749b156bddd1 h1:hcDEC+9gI5IcXg/za5EnpHDzBXaN6u5EzugUDZNUw9w=
 github.com/go-composites/dictionary v0.0.0-20260831114712-749b156bddd1/go.mod h1:RtV09Gk0KRjqls1H9Bp9Xj30y6EUbGMECPAxx/jfTR8=
+github.com/go-composites/dictionary v0.0.0-20260901145305-9cc3f2b9de99 h1:OLyRHdHHGVZgiMXezMKapTGCusXgPgc5d+PL9CCo5+c=
+github.com/go-composites/dictionary v0.0.0-20260901145305-9cc3f2b9de99/go.mod h1:uwJbmT55SQG/R2BJdV3/6jLvq9p1qIjw3/IEAmb4Siw=
 github.com/go-composites/error v0.0.0-20260621061850-8f949885a586 h1:gA6h4DA7NSiDoqwYDMUlQ2LO/dWx3VBq41nHIMQJskI=
 github.com/go-composites/error v0.0.0-20260621061850-8f949885a586/go.mod h1:9Lf1BQDdG/DDzw+WaWctBOzk69PTLjREAiPcKfSUilU=
 github.com/go-composites/error v0.0.0-20260830075421-e9e68493eded h1:lVkmXqI0GyJ7qfCXL9RptTb9HhCIh+2dsXoQ6N2N8BE=
@@ -50,6 +54,8 @@ github.com/go-composites/number v0.0.0-20260831064036-71b845b245af h1:dT142e5vBN
 github.com/go-composites/number v0.0.0-20260831064036-71b845b245af/go.mod h1:Ocyt3phDB/lP0jXeKur63Syl2Ds17+lioaKS5FjkAU4=
 github.com/go-composites/number v0.0.0-20260831114709-eaf7909d9111 h1:NoqPIER1qpRRyCK1Xmuk9t/hQj15tnt5x/NZuSxboSI=
 github.com/go-composites/number v0.0.0-20260831114709-eaf7909d9111/go.mod h1:4V60SmjUBgXoS2dz6QIESkLHnjw+yxrxplQvDGRKy68=
+github.com/go-composites/number v0.0.0-20260901144901-479c82e4df70 h1:MCLTrjTfbRvDDlDBxu1wlphABvSAi5F7j0YsP7Rtzb8=
+github.com/go-composites/number v0.0.0-20260901144901-479c82e4df70/go.mod h1:MQeJAnWQlJcdr7RQP4D1QJXEeps8V/OfYdI3zRgJuro=
 github.com/go-composites/result v0.0.0-20260621061851-32adc2fb3ac2 h1:viW4pFFcVIZI7r/2I5LzjrHti/w4yaj4YbD8CdfrOHg=
 github.com/go-composites/result v0.0.0-20260621061851-32adc2fb3ac2/go.mod h1:gvGXTgh97uhqQjR16Te5aGr/Y4g1xQXDHc2nNYEj8/Y=
 github.com/go-composites/result v0.0.0-20260830075423-4c0f0e8854cc h1:sLc9uhHzXlP39tvKybmHKtof9kQyNWz8MAG5ZxA/r3Y=
@@ -68,6 +74,8 @@ github.com/go-composites/string v0.0.0-20260831064032-1eb7ee344577 h1:SSyY6++wMJ
 github.com/go-composites/string v0.0.0-20260831064032-1eb7ee344577/go.mod h1:vC4mzYDlVte0DwqG8gngclhaFibNWFJBnVhF9ySJqcs=
 github.com/go-composites/string v0.0.0-20260831115335-cbe87527857f h1:Eh0DYX4D0W7qfxk/H9hIugGvPSv0P4zMgIhD+1E0ihU=
 github.com/go-composites/string v0.0.0-20260831115335-cbe87527857f/go.mod h1:Z7VxQZEO79EcbnOxRWBt7+v+YLiirLQu01d2lwSXqXM=
+github.com/go-composites/string v0.0.0-20260901144844-e182bebfe24d h1:ZF/tQNN/IsECOTBheZs+Uyg+e4hehTTQreeyDBVguo0=
+github.com/go-composites/string v0.0.0-20260901144844-e182bebfe24d/go.mod h1:cgMJQKU4VSvFstp+QPq1/IcKXbjjiRNgDfzui+aivWc=
 github.com/go-logr/logr v1.4.1 h1:pKouT5E8xu9zeFC39JXRDukb6JFQPXM5p5I91188VAQ=
 github.com/go-logr/logr v1.4.1/go.mod h1:9T104GzyrTigFIr8wt5mBrctHMim0Nb2HLGrmQ40KvY=
 github.com/go-task/slim-sprig/v3 v3.0.0 h1:sUs3vkvUymDpBKi3qH1YSqBQk9+9D/8M2mN1vB6EwHI=
