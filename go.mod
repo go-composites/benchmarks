@@ -1,6 +1,6 @@
 module github.com/go-composites/benchmarks
 
-go 1.26.4
+go 1.27.1
 
 require (
 	github.com/go-composites/array v0.0.0-20260929012314-b34dd2208c46
