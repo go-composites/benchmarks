@@ -1,7 +1,7 @@
 github.com/Masterminds/semver/v3 v3.4.0 h1:Zog+i5UMtVoCU8oKka5P7i9q9HgrJeGzI9SA1Xbatp0=
 github.com/Masterminds/semver/v3 v3.4.0/go.mod h1:4V+yj/TJE1HU9XfppCwVMZq3I84lprf4nC11bSS5beM=
-github.com/go-composites/array v0.0.0-20261014004647-ef18fc5f26fa h1:TByq0/a7dOxbQvcg/435jbM03i/EnQ6QH8Zv6UieM30=
-github.com/go-composites/array v0.0.0-20261014004647-ef18fc5f26fa/go.mod h1:1V/oNn9b/8uYpJiJxRZXsE4I/S27YA0IGu+YeIaSaKI=
+github.com/go-composites/array v0.0.0-20261015235938-f7161fa2d065 h1:WDXYARIlvdq8yAthNq8esKhDlJPBxbAgYs/7psRyI/E=
+github.com/go-composites/array v0.0.0-20261015235938-f7161fa2d065/go.mod h1:mNli2GlOWRjuY5tWWulMDlQONfm572/kPfVtjZy1zR8=
 github.com/go-composites/boolean v0.0.0-20261012005453-aee1d35b7437 h1:+eHvVlQi5CabCN07SMrqPiRRdOzJ1LAsRl8YM7pFHy8=
 github.com/go-composites/boolean v0.0.0-20261012005453-aee1d35b7437/go.mod h1:x8sJuHMuSRazpFYXy4Ke6PWwThNeuRTs/XLd40SyI98=
 github.com/go-composites/dictionary v0.0.0-20261010193252-92f3fc821a21 h1:hoElzY5inmqxZml3KMjFAjkiIrgxxOCujnHJM14FVYA=
@@ -14,8 +14,8 @@ github.com/go-composites/number v0.0.0-20261014005117-79ed3c064e70 h1:dJVKvqvALs
 github.com/go-composites/number v0.0.0-20261014005117-79ed3c064e70/go.mod h1:cnzGuGxqBY32iW8s7zGINuwMT8/1PFxOiBKnJE34WdY=
 github.com/go-composites/result v0.0.0-20261014005241-188da08131d5 h1:qnkcwIQYnHIUfaBUU8ved8+k/Qh39qG68B9+xtnEizY=
 github.com/go-composites/result v0.0.0-20261014005241-188da08131d5/go.mod h1:F5ud0j51CvA7vOJzha54RIV7+vRdDjh5rG1R4o5oRJE=
-github.com/go-composites/string v0.0.0-20261010193444-fca5de1d040d h1:yHasNdjGdx1Iu2Kr2nWFlYPVqgGQtBBQ9lc+bQ7Vf9w=
-github.com/go-composites/string v0.0.0-20261010193444-fca5de1d040d/go.mod h1:Smlyp21H7NJN3dyDYbVMS6wsOFWh6Y1nZ9aKZhJ7Cp8=
+github.com/go-composites/string v0.0.0-20261016000805-5af238055ddf h1:wW/FKZBrSODGOJv/pyb6xfddBYUTBWrQ0A8jR+ZIdxk=
+github.com/go-composites/string v0.0.0-20261016000805-5af238055ddf/go.mod h1:rVZUpf4Dm3f44PZ+hiNWy8PPDtNgXvzN9HMdnWJ/Fb0=
 github.com/go-logr/logr v1.4.3 h1:CjnDlHq8ikf6E492q6eKboGOC0T8CDaOvkHCIg8idEI=
 github.com/go-logr/logr v1.4.3/go.mod h1:9T104GzyrTigFIr8wt5mBrctHMim0Nb2HLGrmQ40KvY=
 github.com/go-task/slim-sprig/v3 v3.0.0 h1:sUs3vkvUymDpBKi3qH1YSqBQk9+9D/8M2mN1vB6EwHI=
